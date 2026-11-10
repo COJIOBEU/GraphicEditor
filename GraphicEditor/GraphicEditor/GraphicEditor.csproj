@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Repositories\IImageRepository.cs" />
+    <Compile Include="Repositories\PngImageRepository.cs" />
     <Compile Include="Services\DrawingManager.cs" />
     <Compile Include="Tools\DrawingTool.cs" />
     <Compile Include="Tools\EllipseTool.cs" />
