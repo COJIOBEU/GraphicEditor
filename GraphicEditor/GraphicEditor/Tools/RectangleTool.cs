@@ -6,7 +6,7 @@ namespace GraphicEditor.Tools
 {
     public class RectangleTool : DrawingTool
     {
-        private Point _startPoint;
+        private new Point _startPoint;
 
         public RectangleTool(Canvas canvas) : base(canvas) { }
 
