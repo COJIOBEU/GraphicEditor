@@ -12,7 +12,7 @@ namespace GraphicEditor.Services
         private readonly Canvas _canvas;
         private DrawingTool _currentTool;
         private Color _currentColor = Colors.Black;
-        private double _currentThickness = 2;
+        private double _currentThickness = 3;
 
         private readonly Stack<UIElement> _history = new Stack<UIElement>();
 

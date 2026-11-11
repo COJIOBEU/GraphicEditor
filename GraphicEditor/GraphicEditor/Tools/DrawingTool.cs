@@ -8,7 +8,7 @@ namespace GraphicEditor.Tools
     public abstract class DrawingTool
     {
         public Color CurrentColor { get; set; } = Colors.Black;
-        public double CurrentThickness { get; set; } = 2;
+        public double CurrentThickness { get; set; } = 3;
 
         protected Canvas Canvas { get; private set; }
         protected UIElement PreviewElement { get; set; }

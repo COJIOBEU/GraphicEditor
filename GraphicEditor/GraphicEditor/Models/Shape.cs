@@ -6,7 +6,7 @@ namespace GraphicEditor.Models
     public abstract class Shape
     {
         public Color Color { get; set; } = Colors.Black;
-        public double thickness { get; set; } = 2;
+        public double thickness { get; set; } = 3;
 
         public abstract UIElement ToVisual();
     }
