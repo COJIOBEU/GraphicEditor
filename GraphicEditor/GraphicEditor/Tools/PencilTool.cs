@@ -37,7 +37,7 @@ namespace GraphicEditor.Tools
             {
                 ClearPreview();
                 var finalShape = _currentShape.ToVisual();
-                Canvas.Children.Add(finalShape);
+                AddShape(finalShape);
             }
             _currentShape = null;
         }

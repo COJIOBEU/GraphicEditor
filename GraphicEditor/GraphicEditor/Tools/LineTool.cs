@@ -6,8 +6,6 @@ namespace GraphicEditor.Tools
 {
     public class LineTool : DrawingTool
     {
-        private Point _startPoint;
-
         public LineTool(Canvas canvas) : base(canvas) { }
 
         public override void OnMouseMove(Point position)
@@ -34,7 +32,7 @@ namespace GraphicEditor.Tools
                 Color = CurrentColor,
                 thickness = CurrentThickness
             };
-            Canvas.Children.Add(finalShape.ToVisual());
+            AddShape(finalShape.ToVisual());
         }
     }
 }

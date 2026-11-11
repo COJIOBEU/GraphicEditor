@@ -6,8 +6,6 @@ namespace GraphicEditor.Tools
 {
     public class RectangleTool : DrawingTool
     {
-        private new Point _startPoint;
-
         public RectangleTool(Canvas canvas) : base(canvas) { }
 
         public override void OnMouseMove(Point position)
@@ -34,7 +32,7 @@ namespace GraphicEditor.Tools
                 Color = CurrentColor,
                 thickness = CurrentThickness
             };
-            Canvas.Children.Add(finalShape.ToVisual());
+            AddShape(finalShape.ToVisual());
         }
     }
 }

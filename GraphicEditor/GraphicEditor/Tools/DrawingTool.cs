@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using GraphicEditor.Services;
 
 namespace GraphicEditor.Tools
 {
@@ -12,6 +13,7 @@ namespace GraphicEditor.Tools
         protected Canvas Canvas { get; private set; }
         protected UIElement PreviewElement { get; set; }
         protected Point _startPoint;
+        public DrawingManager Manager { get; set; }
 
         public DrawingTool(Canvas canvas)
         {
@@ -22,6 +24,7 @@ namespace GraphicEditor.Tools
         {
             _startPoint = position;
         }
+
         public abstract void OnMouseMove(Point position);
         public abstract void OnMouseUp(Point position);
 
@@ -32,6 +35,12 @@ namespace GraphicEditor.Tools
                 Canvas.Children.Remove(PreviewElement);
                 PreviewElement = null;
             }
+        }
+
+        protected void AddShape(UIElement shape)
+        {
+            Canvas.Children.Add(shape);
+            Manager?.RegisterShape(shape);
         }
     }
 }

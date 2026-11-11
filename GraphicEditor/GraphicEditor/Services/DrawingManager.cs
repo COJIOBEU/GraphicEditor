@@ -1,21 +1,20 @@
-﻿using GraphicEditor.Tools;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using GraphicEditor.Tools;
 
 namespace GraphicEditor.Services
 {
     public class DrawingManager
     {
-
         private readonly Canvas _canvas;
         private DrawingTool _currentTool;
+        private Color _currentColor = Colors.Black;
+        private double _currentThickness = 2;
+
+        private readonly Stack<UIElement> _history = new Stack<UIElement>();
 
         public DrawingManager(Canvas canvas)
         {
@@ -31,7 +30,6 @@ namespace GraphicEditor.Services
         private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             _canvas.CaptureMouse();
-
             Point position = e.GetPosition(_canvas);
             _currentTool.OnMouseDown(position);
         }
@@ -48,18 +46,21 @@ namespace GraphicEditor.Services
         private void Canvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             _canvas.ReleaseMouseCapture();
-
             Point position = e.GetPosition(_canvas);
             _currentTool.OnMouseUp(position);
         }
 
         public void SetTool(DrawingTool tool)
         {
+            tool.Manager = this;
+            tool.CurrentColor = _currentColor;
+            tool.CurrentThickness = _currentThickness;
             _currentTool = tool;
         }
 
         public void SetColor(Color color)
         {
+            _currentColor = color;
             if (_currentTool != null)
             {
                 _currentTool.CurrentColor = color;
@@ -68,6 +69,7 @@ namespace GraphicEditor.Services
 
         public void SetThickness(double thickness)
         {
+            _currentThickness = thickness;
             if (_currentTool != null)
             {
                 _currentTool.CurrentThickness = thickness;
@@ -77,6 +79,23 @@ namespace GraphicEditor.Services
         public void ClearCanvas()
         {
             _canvas.Children.Clear();
+            _history.Clear();
+        }
+
+        public bool Undo()
+        {
+            if (_history.Count == 0)
+                return false;
+
+            var lastShape = _history.Pop();
+            _canvas.Children.Remove(lastShape);
+            return true;
+        }
+
+        public void RegisterShape(UIElement shape)
+        {
+            if (shape != null)
+                _history.Push(shape);
         }
     }
 }
